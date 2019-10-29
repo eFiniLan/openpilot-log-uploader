@@ -2,7 +2,7 @@ openpilot Log Uploader
 ---
 This script allows you to upload openpilot logs (rlogs/camera footages) in PC environment.
 
-The script works in ubuntu 16.04 + python 3.5
+tested in ubuntu 16.04 + python 3.5
 
 
 INSTALLATION
