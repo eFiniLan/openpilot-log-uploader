@@ -9,7 +9,7 @@ import requests
 import traceback
 import threading
 
-from config import ROOT, dongle_id, delete_after_upload, fake_upload
+from config import ROOT, dongle_id, delete_after_upload, fake_upload, dcamera_upload
 
 from api import Api
 
@@ -110,6 +110,15 @@ class Uploader():
     unprocessed_files = list(self.gen_upload_files())
     upload_files = []
 
+    # remove dcamera files
+    if not dcamera_upload:
+      for name, key, fn in unprocessed_files:
+        if not name == "dcamera.hevc":
+          upload_files.append((name, key, fn))
+      unprocessed_files = upload_files
+      upload_files = []
+
+    # remove files that has .uploaded duplicates
     for name, key, fn in unprocessed_files:
       filename, extension = os.path.splitext(fn)
       if not extension == ".uploaded":
